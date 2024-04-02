@@ -1,0 +1,34 @@
+body{
+    margin:0px;
+    background-color: white;
+    height:100%;
+    width: 100%;
+}
+.nav{
+    width:100%;
+    height:50px;
+    display:flex;
+    background-color: #481E14;
+    gap:5px;
+}
+.navBtn{
+    border-style:none;
+    background-color: transparent;
+    color:white;
+    padding:10px;
+    padding-left:30px;
+    font-size:15px;
+}
+.jumbotron{
+    width:100%;
+    height:400px;
+}
+.formContainer{
+
+    padding:50px;
+    width:100%
+
+}
+.article{
+    padding:50px;
+}

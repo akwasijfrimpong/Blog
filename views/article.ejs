@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+    <div class="nav">
+        <form action="/" method="GET" class="inline">
+            <button class="navBtn" >HOME</button>
+        </form>
+
+        <form action="/popular" method="GET" class="inline">
+            <button class="navBtn" action="/popular" method="GET">POPULAR</button>
+        </form>
+
+        <form action="/create" method="GET" class="inline">
+            <button class="navBtn" action="/create" method="GET" >CREATE POST</button>
+        </form>
+
+
+    </div>
+
+    <div class="article">
+        <div class="blog-post">
+            <h2 class="blog-post-title">Another blog post</h2>
+            <p><%=currArticle %></p>
+          </div>
+        
+    </div>
+</body>
+</html>
