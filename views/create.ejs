@@ -29,14 +29,26 @@
         <div class="bd-example">
             <form action="/submitArticle" method="POST">
               <div class="form-group">
+                <% if(locals.updating == false){%>
                 <label for="exampleInputEmail1">Title</label>
                 <input  class="form-control" name="title" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter title">
               </div>
               <div class="form-group">
                 <label for="exampleFormControlTextarea1">Enter Article</label>
-                    <textarea class="form-control" name="article" id="exampleFormControlTextarea1" rows="8"></textarea>
+                    <textarea class="form-control" name="article" id="exampleFormControlTextarea1" value="<%=title%>" rows="8"></textarea>
               </div>
               <button type="submit" class="btn btn-primary">Submit</button>
+              <% } else if(locals.updating == true){ %>
+                <label for="exampleInputEmail1">Title</label>
+                <input  class="form-control" value="<%= title %>" name="title" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter title">
+              </div>
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">Enter Article</label>
+                    <textarea class="form-control" name="article" id="exampleFormControlTextarea1" rows="8"><%=content%></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary">update</button>
+
+              <%}%>
             </form>
             </div>
 

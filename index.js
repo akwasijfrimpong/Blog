@@ -10,6 +10,8 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const app = express();
 const port = 3000;
 let listOfFiles = []
+let selectedArticle;
+let updating = false;
 
 
 function createFile(content){
@@ -40,7 +42,6 @@ function readAllFiles(){
         } catch (err) {
           console.error("read file err : " + err  );
         }
-        console.log('list of files' + JSON.stringify(listOfFiles));
         return listOfFiles
     }
 
@@ -48,7 +49,7 @@ async function readFileContent(fileName){
     const fullpath = __dirname + '/Articles/' + fileName;
     try{
         const data = await fs.promises.readFile(fullpath,'utf8');
-        console.log("akwasi" + data);
+
         return data;
       
     } catch (err) {
@@ -58,6 +59,31 @@ async function readFileContent(fileName){
 
 
 }
+
+async function deleteFile(fileName){
+        fileName = __dirname + '/Articles/' +fileName
+
+        fs.unlink(fileName, (err)=>{
+            if(err){
+                console.log(err);
+            }
+            else{
+                console.log('file is deleted' + fileName);
+            }
+        });
+    
+
+}
+
+async function updateFile(fileName){
+    
+
+}
+
+
+
+
+
 
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -77,7 +103,10 @@ app.get('/', (req, res) => {
 
 
 app.get('/create',(req, res)=>{
-    res.render("create.ejs");
+    updating = false
+    let title = ""
+    let content = ""
+    res.render("create.ejs", {updating, title, content});
 })
 
 app.get('/popular',(req, res)=>{
@@ -92,18 +121,33 @@ app.post('/submitArticle', (req, res) =>{
 
 
 });
+app.get('/delete', async (req, res)=>{
+    deleteFile(selectedArticle);
+    selectedArticle ="";
+    res.redirect('/')
+});
+
+app.get('/update', async(req, res)=>{
+    updating = true;
+    let title = selectedArticle.slice(0,-4);
+    console.log("akwasi " + selectedArticle);
+    let content = await readFileContent(selectedArticle);
+    console.log("akwasi title: " + title, content);
+
+    res.render("create.ejs", {updating, title, content});
+})
 
 app.get('/article', async (req, res)=>{
-    console.log("request: " +req.url);
-    console.log("request method: " +req.method);
-    console.log("request headers: " +req.headers);
     let file = req.url.slice(9,-1);
     file = file + ".txt";
     file = file.replaceAll("+", " ");
-    console.log("file no: " + file);
     let currArticle = await readFileContent(file);
-
     currArticle = currArticle.slice(1,-1);
-    console.log("curr article= " + currArticle);
+    selectedArticle = file;
     res.render("article.ejs", {currArticle});
 })
+app.get('/updateArticle', async (req, res)=>{
+
+});
+
+
